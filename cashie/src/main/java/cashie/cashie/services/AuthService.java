@@ -2,6 +2,7 @@ package cashie.cashie.services;
 
 import cashie.cashie.dtos.login.LoginRequest;
 import cashie.cashie.dtos.login.LoginResponse;
+import cashie.cashie.mappers.UserMapper;
 import cashie.cashie.repositories.UserRepository;
 import cashie.cashie.security.JwtUtil;
 import org.springframework.http.HttpStatus;
@@ -25,15 +26,18 @@ public class AuthService {
     private final JwtUtil jwtUtil;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
     public AuthService(AuthenticationManager authenticationManager,
                        JwtUtil jwtUtil,
                        UserRepository userRepository,
-                       PasswordEncoder passwordEncoder) {
+                       PasswordEncoder passwordEncoder,
+                       UserMapper userMapper) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
     public LoginResponse login(String email, String password) {
@@ -46,6 +50,9 @@ public class AuthService {
         }
 
         String token = jwtUtil.generateToken(email);
-        return new LoginResponse(token, "Login exitoso");
+        if(!userRepository.findByEmail(email).isPresent()){
+            return new LoginResponse(null, "Usuario inválido");
+        }
+        return new LoginResponse(token, "Login exitoso", userMapper.toDto(userRepository.findByEmail(email).get()));
     }
 }
