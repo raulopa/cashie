@@ -16,6 +16,7 @@ import { Button } from "@heroui/button";
 import { PaymentMethod } from "../enums/payment-method";
 import { TransactionDto } from "../dtos/transaction-dto";
 import { TransactionType } from "../enums/transaction-type";
+import { TransactionService } from "../services/transaction-service";
 
 export const paymentMethods = [
     { key: 'cash', label: 'Efectivo', value: PaymentMethod.CASH },
@@ -53,6 +54,11 @@ export default function NewTransactionModal({ isOpen, onOpenChange }: { isOpen: 
         setIsExpense(true);
     }
 
+    const handleNewTransaction = (onClose: any) => {
+        const { save } = TransactionService;
+        save(transactionDto);
+        onClose
+    }
 
     return (
         <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
@@ -103,7 +109,7 @@ export default function NewTransactionModal({ isOpen, onOpenChange }: { isOpen: 
                             <Button color="danger" variant="light" onPress={onClose}>
                                 Cancelar
                             </Button>
-                            <Button color="primary" onPress={onClose}>
+                            <Button color="primary" onPress={() => handleNewTransaction(onClose)}>
                                 Guardar
                             </Button>
                         </ModalFooter>

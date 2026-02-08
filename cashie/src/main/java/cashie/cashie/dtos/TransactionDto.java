@@ -16,10 +16,18 @@ public class TransactionDto {
     private LocalDate date;
     private TransactionType type;
     private PaymentMethod paymentMethod;
-
+    private Long userId;
     private Long categoryId;
     private String categoryName;
 
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public Long getId() {
         return id;
