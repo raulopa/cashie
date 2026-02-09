@@ -10,9 +10,12 @@ import cashie.cashie.models.UserModel;
 import cashie.cashie.repositories.CategoryRepository;
 import cashie.cashie.repositories.TransactionRepository;
 import cashie.cashie.repositories.UserRepository;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
+@Service
 public class TransactionService {
     private final TransactionRepository transactionRepository;
     private final UserRepository userRepository;
@@ -24,6 +27,13 @@ public class TransactionService {
         this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;
         this.transactionMapper = transactionMapper;
+    }
+
+    public List<TransactionDto> getTransactionsByUserId(long userId){
+        return transactionRepository.findByUserId(userId)
+                .stream()
+                .map(transactionMapper::toDto)
+                .toList();
     }
 
     public TransactionDto saveTransaction(TransactionDto transactionDto){

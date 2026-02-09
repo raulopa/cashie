@@ -37,7 +37,6 @@ export default function NewCategoryModal({ isOpen, onOpenChange }: { isOpen: boo
         try {
             await CategoryService.save(categoryDto);
             onClose();
-            // Reset form
             setCategoryDto({
                 id: 0,
                 name: '',

@@ -7,9 +7,12 @@ import cashie.cashie.models.CategoryModel;
 import cashie.cashie.models.UserModel;
 import cashie.cashie.repositories.CategoryRepository;
 import cashie.cashie.repositories.UserRepository;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CategoryService {
 
     private final UserRepository userRepository;
@@ -20,6 +23,13 @@ public class CategoryService {
         this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;
         this.categoryMapper = categoryMapper;
+    }
+
+    public List<CategoryDto> getCategoriesByUserId(long userId){
+        return categoryRepository.findByUserId(userId)
+                .stream()
+                .map(categoryMapper::toDto)
+                .toList();
     }
 
     public CategoryDto saveCategory(CategoryDto categoryDto){
