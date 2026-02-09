@@ -70,11 +70,11 @@ export default function NewTransactionModal({ isOpen, onOpenChange }: { isOpen: 
                         </ModalHeader>
 
                         <ModalBody>
-                            <div className="flex justify-evenly">
-                                <Button color="primary" variant={isIncome ? "solid" : "bordered"} onPress={handleIncome}>
+                            <div className="flex justify-evenly gap-3">
+                                <Button className="flex-1" color="primary" variant={isIncome ? "solid" : "bordered"} onPress={handleIncome}>
                                     Ingreso
                                 </Button>
-                                <Button color="danger" variant={isExpense ? "solid" : "bordered"} onPress={handleExpense}>
+                                <Button className="flex-1" color="danger" variant={isExpense ? "solid" : "bordered"} onPress={handleExpense}>
                                     Gasto
                                 </Button>
                             </div>

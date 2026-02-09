@@ -3,11 +3,12 @@ package cashie.cashie.dtos;
 import cashie.cashie.enums.TransactionType;
 
 public class CategoryDto {
-    private Long id;       // autogenerado
+    private Long id;
     private String name;
     private TransactionType type;
     private String color;
     private String icon;
+    private Long userId;
 
 
     public Long getId() {
@@ -48,5 +49,13 @@ public class CategoryDto {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
