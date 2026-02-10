@@ -13,34 +13,35 @@ import CategoryDto from "../dtos/category-dto";
 import { TransactionType } from "@/features/transactions/enums/transaction-type";
 import { CategoryService } from "../services/category-service";
 
-export default function NewCategoryModal({ isOpen, onOpenChange }: { isOpen: boolean; onOpenChange: () => void }) {
+export default function NewCategoryModal({ isOpen, onOpenChange, onSuccess }: { isOpen: boolean; onOpenChange: () => void; onSuccess?: () => void }) {
 
     const [categoryDto, setCategoryDto] = useState<CategoryDto>({
         id: 0,
         name: '',
-        transactionType: TransactionType.INCOME,
+        type: TransactionType.INCOME,
         color: '#3b82f6',
         icon: '',
     });
 
-    const isIncome = categoryDto.transactionType === TransactionType.INCOME;
-    const isExpense = categoryDto.transactionType === TransactionType.EXPENSE;
+    const isIncome = categoryDto.type === TransactionType.INCOME;
+    const isExpense = categoryDto.type === TransactionType.EXPENSE;
 
     const handleTypeChange = (type: TransactionType) => {
         setCategoryDto(prev => ({
             ...prev,
-            transactionType: type
+            type: type
         }));
     }
 
     const handleSave = async (onClose: () => void) => {
         try {
             await CategoryService.save(categoryDto);
+            onSuccess?.();
             onClose();
             setCategoryDto({
                 id: 0,
                 name: '',
-                transactionType: TransactionType.INCOME,
+                type: TransactionType.INCOME,
                 color: '#3b82f6',
                 icon: '',
             });
