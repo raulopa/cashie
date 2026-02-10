@@ -7,7 +7,7 @@ import { ProtectedRoute } from "./routes/ProtectedRoute";
 
 function App() {
   return (
-    <div className="relative flex flex-col h-screen">
+    <div className="relative flex flex-col min-h-screen bg-default-100 dark:bg-background">
       <Routes>
 
         <Route element={<ProtectedRoute />}>

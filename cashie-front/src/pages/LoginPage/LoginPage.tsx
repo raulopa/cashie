@@ -15,7 +15,7 @@ export default function LoginPage() {
 
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen w-full bg-background text-foreground">
+        <div className="flex flex-col items-center justify-center min-h-screen w-full bg-inherit text-foreground">
             <AnimatePresence mode="wait">
                 <AnimatePresence>
                     {isLogin ? (
